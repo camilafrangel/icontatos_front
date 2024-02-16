@@ -1,0 +1,14 @@
+.nav {
+  background: linear-gradient(to right, #41A67D, #02213B);
+  padding: 15px;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo{
+  margin-left: 5vw;
+}

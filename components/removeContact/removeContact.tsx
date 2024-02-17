@@ -2,6 +2,7 @@
 
 import { HiOutlineTrash } from "react-icons/hi"
 import { useRouter } from "next/navigation"
+import style from "./removeContact.module.css"
 
 export default function RemoveContact({id}: {id: string}){
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function RemoveContact({id}: {id: string}){
     }
 
     return(
-        <button onClick={removeContact}>
+        <button className={style.removeButton} onClick={removeContact}>
             <HiOutlineTrash size={24}></HiOutlineTrash>
         </button>
     )

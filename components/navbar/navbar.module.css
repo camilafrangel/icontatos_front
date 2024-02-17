@@ -1,14 +1,20 @@
 .nav {
   background: linear-gradient(to right, #41A67D, #02213B);
   padding: 15px;
-  justify-content: space-between;
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; */
+  display: flex;
+  align-items: center;
 }
 
 .logo{
-  margin-left: 5vw;
+  margin: 0 5vw;
+}
+
+.homeButton{
+  color: #ffff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 80px;
 }

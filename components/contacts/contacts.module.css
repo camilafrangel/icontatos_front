@@ -1,4 +1,47 @@
-.contacts{
+.contactsBox{
+    width: 95%;
+    height: 80%;
+    background: #ffff;
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
     position: relative;
-    top: 50px;
+    top: 5%;
+    left: 2.5%;
+    margin: 0;
+}
+
+.styledTable{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 90vw;
+}
+
+.styledTable thead tr {
+    color: #02213B;
+    text-align: left;
+}
+
+.styledTable th,
+.styledTable td {
+    padding: 12px 15px;
+}
+
+.styledTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styledTable tbody tr:nth-of-type(even) {
+    background-color: #FAFAFA;
+}
+
+.editIcon{
+    color: #02213B;
+}
+
+.styledTable thead {
+    background: #E7E9EF;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
 }

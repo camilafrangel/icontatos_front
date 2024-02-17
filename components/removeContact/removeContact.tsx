@@ -9,7 +9,7 @@ export default function RemoveContact({id}: {id: string}){
     const removeContact = async() => {
         // const confirmed = confirm("Sure?");
         
-        const res = await fetch(`http://localhost:3000/api/contacts?id=${id}`, {
+        const res = await fetch(`/api/contacts?id=${id}`, {
             method: "DELETE",
         });
 

@@ -5,8 +5,10 @@ import { HiPencilAlt } from "react-icons/hi"
 import { Key } from "react";
 
 async function getContacts() {
+    const apiUrl = process.env.API_URL
+    console.log(apiUrl)
     try {
-        const res = await fetch("http://localhost:3000/api/contacts", {
+        const res = await fetch(`${apiUrl}/api/contacts`, {
             cache: "no-store"
         })
 

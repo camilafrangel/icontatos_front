@@ -1,8 +1,9 @@
 import EditTopicForm from "../../../components/editContact/editTopicForm";
 
 const getContactById= async(id: string) => {
+    const apiUrl = process.env.API_URL;
     try {
-        const res = await fetch(`http://localhost:3000/api/contacts/${id}`,{
+        const res = await fetch(`${apiUrl}/api/contacts/${id}`,{
             cache: "no-store"
         })
 

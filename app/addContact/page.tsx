@@ -16,7 +16,7 @@ export default function AddContact() {
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try {
-            const response = await fetch('http://localhost:3000/api/contacts', {
+            const response = await fetch('/api/contacts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,6 +30,7 @@ export default function AddContact() {
 
             console.log('Contact created successfully!');
             router.push("/");
+            router.refresh();
         } catch (error) {
             console.error('Error creating contact:', error);
         }

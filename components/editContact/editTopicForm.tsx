@@ -21,7 +21,7 @@ export default function EditTopicForm({id, name, email, phoneNumber}: {id: strin
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/contacts/${id}`, {
+            const response = await fetch(`/api/contacts/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

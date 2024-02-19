@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HiOutlineCheck, HiPencilAlt, HiX } from "react-icons/hi";
 import Modal from "react-modal";
@@ -26,7 +26,7 @@ const customModal = {
     },
 };
 
-export default function EditTopicForm({
+export default function EditContact({
     id,
     name,
     email,
@@ -72,17 +72,14 @@ export default function EditTopicForm({
 
     function openModal() {
         setIsOpen(true);
+        setValue("name", name);
+        setValue("email", email);
+        setValue("phoneNumber", phoneNumber);
     }
 
     function closeModal() {
         setIsOpen(false);
     }
-
-    useEffect(() => {
-        setValue("name", name);
-        setValue("email", email);
-        setValue("phoneNumber", phoneNumber);
-    }, [name, email, phoneNumber, setValue]);
 
     return (
         <div>
@@ -141,7 +138,7 @@ export default function EditTopicForm({
                                 {...register("phoneNumber", {
                                     required: "* Telefone é obrigatório",
                                     pattern: {
-                                        value: /^\(\d{2}\) \d{5}-\d{4}$/,
+                                        value: /^[0-9]{10,11}$/,
                                         message: "* Telefone inválido",
                                     },
                                 })}

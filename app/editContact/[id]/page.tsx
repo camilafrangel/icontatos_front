@@ -1,4 +1,4 @@
-import EditTopicForm from "../../../components/editContact/editTopicForm";
+import EditContactForm from "../../../components/editContactForm/editContact";
 
 const getContactById= async(id: string) => {
     const apiUrl = process.env.API_URL;
@@ -23,5 +23,5 @@ export default async function EditContact({ params }: { params : { id: string}})
     const {contact} = await getContactById(id)
     const {name, email, phoneNumber} = contact;
 
-    return <EditTopicForm id={id} name={name} email={email} phoneNumber={phoneNumber}/>
+    return <EditContactForm id={id} name={name} email={email} phoneNumber={phoneNumber}/>
 }

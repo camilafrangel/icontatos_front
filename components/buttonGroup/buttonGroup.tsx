@@ -1,7 +1,7 @@
 import Link from "next/link";
 import style from "./buttonGroup.module.css"
 import { HiFilter, HiDownload, HiSearch } from "react-icons/hi"
-import AddContact from "../../app/addContact/page";
+import AddContact from "../addContact/page";
 
 export default function ButtonGroup() {
     return (

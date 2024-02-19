@@ -6,7 +6,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { HiOutlineCheck, HiPencilAlt, HiX } from "react-icons/hi";
 import Modal from "react-modal";
 import style from "./editContact.module.css";
-import InputMask from "react-input-mask";
 
 interface IFormInput {
     name: String,
@@ -137,10 +136,8 @@ export default function EditTopicForm({
                                 {errors.email && (<p className={style.error}>{errors.email.message}</p>)}
                             </div>
                             <label>Telefone</label>
-                            <InputMask
+                            <input
                                 className={style.input}
-                                mask="(99) 99999-9999"
-                                maskChar="_"
                                 {...register("phoneNumber", {
                                     required: "* Telefone é obrigatório",
                                     pattern: {

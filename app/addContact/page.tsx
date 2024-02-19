@@ -1,7 +1,6 @@
 'use client'
 
 import { useForm, SubmitHandler } from "react-hook-form"
-import InputMask from "react-input-mask";
 import { useRouter } from "next/navigation";
 import { HiOutlineCheck, HiUserAdd, HiX } from "react-icons/hi";
 import style from "./addContact.module.css"
@@ -61,7 +60,6 @@ export default function AddContact() {
     function closeModal() {
         setIsOpen(false);
         reset();
-        reset({ phoneNumber: "" });
     }
 
     return (
@@ -122,15 +120,13 @@ export default function AddContact() {
                             </div>
                             <label>Telefone</label>
                             <div>
-                                <InputMask
+                                <input
                                     placeholder="(00) 99999-9999"
                                     className={style.input}
-                                    mask="(99) 99999-9999"
-                                    maskChar="_"
                                     {...register("phoneNumber", {
                                         required: "* Telefone é obrigatório",
                                         pattern: {
-                                            value: /^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/,
+                                            value: /^[0-9]{10,11}$/,
                                             message: "* Telefone inválido"
                                         }
                                     })}

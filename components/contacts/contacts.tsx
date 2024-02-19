@@ -1,7 +1,5 @@
-import Link from "next/link";
 import styles from "./contacts.module.css"
 import RemoveContact from "../removeContact/removeContact";
-import { HiPencilAlt } from "react-icons/hi"
 import { Key } from "react";
 import ButtonGroup from "../buttonGroup/buttonGroup";
 import EditContact from "../../app/editContact/[id]/page";
@@ -29,6 +27,13 @@ function formatDate(originalDateString: string) {
     return originalDate.toLocaleDateString('en-GB');
 };
 
+function formatPhone(originalPhoneNumber: string) {
+    const numbers = originalPhoneNumber.replace(/\D/g, '');
+
+    const newFormat = /^(\d{2})(\d{5})(\d{4})$/;
+    return numbers.replace(newFormat, '($1) $2-$3');
+}
+
 export default async function Contacts() {
     const { contacts } = await getContacts();
 
@@ -52,7 +57,7 @@ export default async function Contacts() {
                             <tr key={index} className={styles.tableRow}> {c.id}
                                 <td>{c.name}</td>
                                 <td>{c.email}</td>
-                                <td>{c.phoneNumber}</td>
+                                <td>{formatPhone(c.phoneNumber)}</td>
                                 <td>{formatDate(c.createdAt)}</td>
                                 <td>{formatDate(c.updatedAt)}</td>
                                 <td className={styles.buttonCell}>

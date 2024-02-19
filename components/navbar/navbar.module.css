@@ -8,13 +8,3 @@
 .logo{
   margin: 0 5vw;
 }
-
-.homeButton{
-  color: #ffff;
-  text-decoration: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 80px;
-}

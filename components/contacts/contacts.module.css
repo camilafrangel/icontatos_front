@@ -1,4 +1,4 @@
-.contactsBox{
+.contactsBox {
     width: 95%;
     height: 80%;
     background: #ffff;
@@ -11,16 +11,11 @@
     margin: 0;
 }
 
-.styledTable{
+.styledTable {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
     width: 90vw;
-}
-
-.styledTable thead tr {
-    color: #02213B;
-    text-align: left;
 }
 
 .styledTable th,
@@ -36,12 +31,21 @@
     background-color: #FAFAFA;
 }
 
-.editIcon{
+.styledTable thead {
+    background: #E7E9EF;
+    border: 1px solid #dddddd;
+}
+
+.editIcon {
     color: #02213B;
 }
 
-.styledTable thead {
-    background: #E7E9EF;
-    border-bottom: 1px solid #dddddd;
-    border-top: 1px solid #dddddd;
+.buttonCell {
+    display: flex;
+}
+
+.styledTable thead tr,
+.styledTable thead th {
+    color: #02213B;
+    text-align: left;
 }

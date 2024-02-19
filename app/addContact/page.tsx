@@ -3,6 +3,10 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import InputMask from "react-input-mask";
 import { useRouter } from "next/navigation";
+import { HiOutlineCheck, HiUserAdd, HiX } from "react-icons/hi";
+import style from "./addContact.module.css"
+import Modal from "react-modal"
+import React, { useState } from "react";
 
 interface IFormInput {
     name: String,
@@ -10,10 +14,24 @@ interface IFormInput {
     phoneNumber: String
 }
 
+const customModal = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '8px',
+        border: 'none'
+    }
+};
+
 export default function AddContact() {
     const router = useRouter();
+    const [modalIsOpen, setIsOpen] = useState(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try {
             const response = await fetch('/api/contacts', {
@@ -29,43 +47,112 @@ export default function AddContact() {
             }
 
             console.log('Contact created successfully!');
-            router.push("/");
             router.refresh();
         } catch (error) {
             console.error('Error creating contact:', error);
         }
+        closeModal()
     };
 
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+        reset();
+        reset({ phoneNumber: "" });
+    }
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <label>Nome</label>
-            <input
-                {...register("name", {
-                    required: "Nome é obrigatório"
-                })}
-                aria-invalid={errors.name ? "true" : "false"}
-            />
-            {errors.name && <p>{errors.name.message}</p>}
-            <label>E-mail</label>
-            <input {...register("email", {
-                required: "E-mail é obrigatório",
-                pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "E-mail inválido"
-                }
-            })} />
-            {errors.email && <p>{errors.email.message}</p>}
-            <label>Telefone</label>
-            <InputMask
-                mask="(99) 99999-9999"
-                maskChar="_"
-                {...register("phoneNumber", {
-                    required: "Telefone é obrigatório"
-                })}
-                aria-invalid={errors.phoneNumber ? "true" : "false"}
-            />
-            {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
-            <input type="submit" value="Criar Contato" />
-        </form>
+        <div>
+            <button className={`${style.generalButton} ${style.addContactbutton}`} onClick={openModal}>
+                <HiUserAdd size={20} />
+                Novo Contato
+            </button>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Add contact modal"
+                style={customModal}
+                overlayClassName={style.overlay}
+            >
+                <div className={style.modalBox}>
+                    <div className={style.modalHeader}>
+                        <h4>Novo contato</h4>
+                        <button className={style.closeButton} onClick={closeModal}>
+                            <HiX size={20} />
+                        </button>
+                    </div>
+                    <div className={style.modalBody}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div>
+                                <label>Nome</label>
+                                <input
+                                    placeholder="João da Silva"
+                                    className={style.input}
+                                    {...register("name", {
+                                        required: "* Nome é obrigatório",
+                                        maxLength: {
+                                            value: 40,
+                                            message: "* Limite de caracteres ultrapassado"
+                                        }
+                                    })}
+                                    aria-invalid={errors.name ? "true" : "false"}
+                                />
+                                <div className={style.errorMessageContainer}>
+                                    {errors.name && <p className={style.error}>{errors.name.message}</p>}
+                                </div>
+                            </div>
+                            <div>
+                                <label>E-mail</label>
+                                <input
+                                    placeholder="joao@email.com"
+                                    className={style.input}
+                                    {...register("email", {
+                                        required: "* E-mail é obrigatório",
+                                        pattern: {
+                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                            message: "* E-mail inválido"
+                                        }
+                                    })} />
+                                <div className={style.errorMessageContainer}>
+                                    {errors.email && <p className={style.error}>{errors.email.message}</p>}
+                                </div>
+                            </div>
+                            <label>Telefone</label>
+                            <div>
+                                <InputMask
+                                    placeholder="(00) 99999-9999"
+                                    className={style.input}
+                                    mask="(99) 99999-9999"
+                                    maskChar="_"
+                                    {...register("phoneNumber", {
+                                        required: "* Telefone é obrigatório",
+                                        pattern: {
+                                            value: /^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/,
+                                            message: "* Telefone inválido"
+                                        }
+                                    })}
+                                    aria-invalid={errors.phoneNumber ? "true" : "false"}
+                                />
+                                <div className={style.errorMessageContainer}>
+                                    {errors.phoneNumber && <p className={style.error}>{errors.phoneNumber.message}</p>}
+                                </div>
+                            </div>
+                            <div className={style.modalFooter}>
+                                <button className={`${style.generalButton} ${style.cancelButton}`} onClick={closeModal}>
+                                    <HiX size={20} />
+                                    Cancelar
+                                </button>
+                                <button className={`${style.generalButton} ${style.confirmButton}`} type="submit" value="Criar Contato">
+                                    <HiOutlineCheck size={20} />
+                                    Criar Contato</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </Modal>
+        </div>
     )
 }

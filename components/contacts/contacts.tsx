@@ -13,7 +13,7 @@ async function getContacts() {
             cache: "no-store"
         })
 
-        if(!res.ok) {
+        if (!res.ok) {
             throw new Error('Failed to fetch Contacts')
         }
 
@@ -23,7 +23,7 @@ async function getContacts() {
     }
 }
 
-function formatDate(originalDateString: string){
+function formatDate(originalDateString: string) {
     const originalDate = new Date(originalDateString);
     return originalDate.toLocaleDateString('en-GB');
 };
@@ -33,39 +33,39 @@ export default async function Contacts() {
 
     return (
         <div className={styles.contactsBox}>
-           <div>
-            <ButtonGroup/>
-            <table className={styles.styledTable}>
-                <thead>
-                    <tr className={styles.tableRow}>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Cadastro</th>
-                        <th scope="col">Última Atualização</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {contacts.map((c: { id: string, name: string, email: string, phoneNumber: string, createdAt: string, updatedAt: string, _id: any }, index: Key) => (
-                        <tr key={index} className={styles.tableRow}> {c.id}
-                            <td>{c.name}</td>
-                            <td>{c.email}</td>
-                            <td>{c.phoneNumber}</td>
-                            <td>{formatDate(c.createdAt)}</td>
-                            <td>{formatDate(c.updatedAt)}</td>
-                            <td>
-                                <Link href={`/editContact/${c._id}`}>
-                                    <HiPencilAlt className={styles.editIcon} size={24}></HiPencilAlt>
-                                </Link>
-                                <RemoveContact id={c._id}/>
-                            </td>
+            <div>
+                <ButtonGroup />
+                <table className={styles.styledTable}>
+                    <thead>
+                        <tr className={styles.tableRow}>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Cadastro</th>
+                            <th scope="col">Última Atualização</th>
+                            <th scope="col"></th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div> 
+                    </thead>
+                    <tbody>
+                        {contacts.map((c: { id: string, name: string, email: string, phoneNumber: string, createdAt: string, updatedAt: string, _id: any }, index: Key) => (
+                            <tr key={index} className={styles.tableRow}> {c.id}
+                                <td>{c.name}</td>
+                                <td>{c.email}</td>
+                                <td>{c.phoneNumber}</td>
+                                <td>{formatDate(c.createdAt)}</td>
+                                <td>{formatDate(c.updatedAt)}</td>
+                                <td className={styles.buttonCell}>
+                                    <Link href={`/editContact/${c._id}`}>
+                                        <HiPencilAlt className={styles.editIcon} size={24}></HiPencilAlt>
+                                    </Link>
+                                    <RemoveContact id={c._id} user={c.name} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
+
     );
 }

@@ -4,6 +4,7 @@ import RemoveContact from "../removeContact/removeContact";
 import { HiPencilAlt } from "react-icons/hi"
 import { Key } from "react";
 import ButtonGroup from "../buttonGroup/buttonGroup";
+import EditContact from "../../app/editContact/[id]/page";
 
 async function getContacts() {
     const apiUrl = process.env.API_URL
@@ -55,10 +56,8 @@ export default async function Contacts() {
                                 <td>{formatDate(c.createdAt)}</td>
                                 <td>{formatDate(c.updatedAt)}</td>
                                 <td className={styles.buttonCell}>
-                                    <Link href={`/editContact/${c._id}`}>
-                                        <HiPencilAlt className={styles.editIcon} size={24}></HiPencilAlt>
-                                    </Link>
-                                    <RemoveContact id={c._id} user={c.name} />
+                                    <EditContact params={{id: `${c._id}`}}/>
+                                    <RemoveContact id={c._id} user={c.name}/>
                                 </td>
                             </tr>
                         ))}

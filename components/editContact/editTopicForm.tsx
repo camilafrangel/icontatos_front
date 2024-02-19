@@ -1,8 +1,11 @@
-"use client"
+'use client'
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { HiOutlineCheck, HiPencilAlt, HiX } from "react-icons/hi";
+import Modal from "react-modal";
+import style from "./editContact.module.css";
 import InputMask from "react-input-mask";
 
 interface IFormInput {
@@ -11,80 +14,166 @@ interface IFormInput {
     phoneNumber: String
 }
 
-export default function EditTopicForm({id, name, email, phoneNumber}: {id: string, name: string, email: string, phoneNumber: string}){
+const customModal = {
+    content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+        borderRadius: "8px",
+        border: "none",
+    },
+};
+
+export default function EditTopicForm({
+    id,
+    name,
+    email,
+    phoneNumber,
+}: {
+    id: string;
+    name: string;
+    email: string;
+    phoneNumber: string;
+}) {
     const router = useRouter();
 
-    const [newName, setNewName] = useState(name);
-    const [newEmail, setNewEmail] = useState(email);
-    const [newPhoneNumber, setNewPhoneNumber] = useState(phoneNumber);
+    const [modalIsOpen, setIsOpen] = useState(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+    } = useForm<IFormInput>();
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try {
             const response = await fetch(`/api/contacts/${id}`, {
-                method: 'PUT',
+                method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
             });
 
             if (!response.ok) {
-                throw new Error('Failed to update contact');
+                throw new Error("Failed to update contact");
             }
 
-            console.log('Contact updated successfully!');
-            
-            router.push("/");
+            console.log("Contact updated successfully!");
+
             router.refresh();
         } catch (error) {
-            console.error('Error updating contact:', error);
+            console.error("Error updating contact:", error);
         }
+        closeModal();
     };
 
-    const handleNameChange = (event: { target: { value: any; }; }) => {
-        setNewName(event.target.value);
+    function openModal() {
+        setIsOpen(true);
     }
 
-    const handleEmailChange = (event: { target: { value: any; }; }) => {
-        setNewEmail(event.target.value);
+    function closeModal() {
+        setIsOpen(false);
     }
 
-    const handlePhoneNumberChange = (event: { target: { value: any; }; }) => {
-        setNewPhoneNumber(event.target.value);
-    }
+    useEffect(() => {
+        setValue("name", name);
+        setValue("email", email);
+        setValue("phoneNumber", phoneNumber);
+    }, [name, email, phoneNumber, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Nome</label>
-        <input
-            {...register("name")}
-            value={newName}
-            onChange={handleNameChange}
-            aria-invalid={errors.name ? "true" : "false"}
-        />
-        {errors.name && <p>{errors.name.message}</p>}
-        <label>E-mail</label>
-        <input {...register("email", {
-            pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "E-mail inválido"
-            }
-        })}
-        value={newEmail}
-        onChange={handleEmailChange} />
-        {errors.email && <p>{errors.email.message}</p>}
-        <label>Telefone</label>
-        <InputMask
-            mask="(99) 99999-9999"
-            maskChar="_"
-            {...register("phoneNumber")}
-            value={newPhoneNumber}
-            onChange={handlePhoneNumberChange}
-            aria-invalid={errors.phoneNumber ? "true" : "false"}
-        />
-        {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
-        <input type="submit" value="Atualizar Contato" />
-    </form>
-    )
+        <div>
+            <button className={style.editIcon} onClick={openModal}>
+                <HiPencilAlt size={24}></HiPencilAlt>
+            </button>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Edit contact modal"
+                style={customModal}
+                overlayClassName={style.overlay}
+            >
+                <div className={style.modalBox}>
+                    <div className={style.modalHeader}>
+                        <h4>Editar contato</h4>
+                        <button className={style.closeButton} onClick={closeModal}>
+                            <HiX size={20} />
+                        </button>
+                    </div>
+                    <div className={style.modalBody}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label>Nome</label>
+                            <input
+                                className={style.input}
+                                {...register("name", {
+                                    required: " * Nome é obrigatório",
+                                    maxLength: {
+                                        value: 40,
+                                        message: "* Nome deve ter menos de 40 caracteres",
+                                    },
+                                })}
+                                aria-invalid={errors.name ? "true" : "false"}
+                            />
+                            <div className={style.errorMessageContainer}>
+                                {errors.name && (<p className={style.error}>{errors.name.message}</p> )}
+                            </div>
+                            <label>E-mail</label>
+                            <input
+                                className={style.input}
+                                {...register("email", {
+                                    required: "* E-mail é obrigatório",
+                                    pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: "* E-mail inválido",
+                                    },
+                                })}
+                                aria-invalid={errors.email ? "true" : "false"}
+                            />
+                            <div className={style.errorMessageContainer}>
+                                {errors.email && (<p className={style.error}>{errors.email.message}</p>)}
+                            </div>
+                            <label>Telefone</label>
+                            <InputMask
+                                className={style.input}
+                                mask="(99) 99999-9999"
+                                maskChar="_"
+                                {...register("phoneNumber", {
+                                    required: "* Telefone é obrigatório",
+                                    pattern: {
+                                        value: /^\(\d{2}\) \d{5}-\d{4}$/,
+                                        message: "* Telefone inválido",
+                                    },
+                                })}
+                                aria-invalid={errors.phoneNumber ? "true" : "false"}
+                            />
+                            <div className={style.errorMessageContainer}>
+                                {errors.phoneNumber && (<p className={style.error}>{errors.phoneNumber.message}</p>)}
+                            </div>
+                            <div className={style.modalFooter}>
+                                <button
+                                    className={`${style.generalButton} ${style.cancelButton}`}
+                                    onClick={closeModal}
+                                >
+                                    <HiX size={20} />
+                                    Cancelar
+                                </button>
+                                <button
+                                    className={`${style.generalButton} ${style.confirmButton}`}
+                                    type="submit"
+                                    value="Editar Contato"
+                                >
+                                    <HiOutlineCheck size={20} />
+                                    Confirmar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </Modal>
+        </div>
+    );
 }

@@ -55,15 +55,8 @@
 .wrapper {
   position: relative;
   width: 60%;
-}
-
-.icon {
-  position: absolute;
-  box-sizing: border-box;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  color: #DADADA;
+  display: flex;
+  align-items: center;
 }
 
 .input {
@@ -71,14 +64,28 @@
   padding-left: 35px;
   border: none;
   box-shadow: inset 0 0 0 1.5px #DADADA;
-  border-radius: 8px;
-  width: 100%;
+  border-radius: 8px 0 0 8px;
+  width: 90%;
   height: 40px;
+}
+
+.searchButton{
+  width: 10%;
+  height: 40px;
+  background-color: #41A67D;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  color: #ffff;
+  cursor: pointer;
 }
 
 .input::placeholder {
   font-size: 16px;
   color: #DADADA;
+}
+
+.input:focus {
+  outline: none;
 }
 
 .table{

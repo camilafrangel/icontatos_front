@@ -41,7 +41,7 @@ export default function ContactsTable({ filteredContacts }: FilteredContactsProp
                         filteredContacts.map((c: { id: string, name: string, email: string, phoneNumber: string, createdAt: string, updatedAt: string, _id: any }, index: Key) => (
                             <tr key={index} className={styles.tableRow}> {c.id}
                                 <td>{c.name}</td>
-                                <td>{c.email}</td>
+                                <td><a href={`mailto:${c.email}`} target="_blank" className={styles.email}>{c.email}</a></td>
                                 <td>{formatPhone(c.phoneNumber)}</td>
                                 <td>{formatDate(c.createdAt)}</td>
                                 <td>{formatDate(c.updatedAt)}</td>

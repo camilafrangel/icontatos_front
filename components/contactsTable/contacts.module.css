@@ -46,3 +46,8 @@
 .emptyContainer p {
     color: #737373;
 }
+
+.email{
+    text-decoration: none;
+    color: #105e9d;
+}

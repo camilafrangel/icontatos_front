@@ -10,11 +10,21 @@ import ContactsTable from "../contactsTable/contactsTable";
 
 export default function Dashboard({ contacts }: ContactsProps) {
     const [searchValue, setSearchValue] = useState('');
+    const [filteredContacts, setFilteredContacts] = useState(contacts);
 
-    const filteredContacts = contacts.filter(contact =>
-        contact.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    const handleSearch = () => {
+        const newFilteredContacts = contacts.filter(contact =>
+            contact.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+            contact.email.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        setFilteredContacts(newFilteredContacts);
+    };
+
+    const handleKeyPress = (e: { key: string; }) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
     
     return (
         <div className={style.contactsPannel}>
@@ -28,14 +38,17 @@ export default function Dashboard({ contacts }: ContactsProps) {
                 Exportar
             </Link>
             <div className={style.wrapper}>
-                <HiSearch className={style.icon} size={20} />
                 <input
                     className={style.input}
                     type="text"
                     placeholder="Pesquise por nome ou email"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
+                    onKeyDown={handleKeyPress}
                 />
+                <button className={style.searchButton} onClick={handleSearch}>
+                    <HiSearch className={style.icon} size={20} />
+                </button>
             </div>
             <div className={style.primaryButton}>
                 <AddContact />

@@ -1,10 +1,30 @@
 import styles from "./page.module.css";
 import Contacts from "../components/contacts/contacts";
 
-export default function Home() {
+async function getContacts() {
+  const apiUrl = process.env.API_URL
+  console.log(apiUrl)
+  try {
+      const res = await fetch(`${apiUrl}/api/contacts`, {
+          cache: "no-store"
+      })
+
+      if (!res.ok) {
+          throw new Error('Failed to fetch Contacts')
+      }
+
+      return res.json();
+  } catch (error) {
+      console.log("Error:", error)
+  }
+}
+
+export default async function Home() {
+  const { contacts } = await getContacts();
+
   return (
     <main className={styles.main}>
-      <Contacts/>
+      <Contacts contacts={contacts}/>
     </main>
   );
 }

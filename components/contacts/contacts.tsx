@@ -3,24 +3,7 @@ import RemoveContact from "../removeContact/removeContact";
 import { Key } from "react";
 import ButtonGroup from "../buttonGroup/buttonGroup";
 import EditContact from "../../app/editContact/[id]/page";
-
-async function getContacts() {
-    const apiUrl = process.env.API_URL
-    console.log(apiUrl)
-    try {
-        const res = await fetch(`${apiUrl}/api/contacts`, {
-            cache: "no-store"
-        })
-
-        if (!res.ok) {
-            throw new Error('Failed to fetch Contacts')
-        }
-
-        return res.json();
-    } catch (error) {
-        console.log("Error:", error)
-    }
-}
+import { Props } from "./contacts.types";
 
 function formatDate(originalDateString: string) {
     const originalDate = new Date(originalDateString);
@@ -34,8 +17,7 @@ function formatPhone(originalPhoneNumber: string) {
     return numbers.replace(newFormat, '($1) $2-$3');
 }
 
-export default async function Contacts() {
-    const { contacts } = await getContacts();
+export default async function Contacts({ contacts }: Props) {
 
     return (
         <div className={styles.contactsBox}>

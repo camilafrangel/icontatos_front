@@ -4,6 +4,7 @@ import { HiOutlineTrash } from "react-icons/hi"
 import { useRouter } from "next/navigation"
 import Modal from "react-modal"
 import style from "./removeContact.module.css"
+import modalStyles from "../../app/globals.module.css"
 import React from "react";
 import { HiOutlineCheck, HiX } from "react-icons/hi";
 import { customModal } from "../utils/utils"
@@ -41,11 +42,11 @@ export default function RemoveContact({ id, user }: { id: string, user: string }
                 onRequestClose={closeModal}
                 contentLabel="Remove contact modal"
                 style={customModal}
-                overlayClassName={style.overlay}
+                overlayClassName={modalStyles.overlay}
             >
                 <div className={style.modalBox}>
                     <div className={style.modalHeader}>
-                        <button className={style.closeButton} onClick={closeModal}>
+                        <button className={modalStyles.closeButton} onClick={closeModal}>
                             <HiX size={20} />
                         </button>
                     </div>

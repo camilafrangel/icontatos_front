@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HiOutlineCheck, HiPencilAlt, HiX } from "react-icons/hi";
 import Modal from "react-modal";
-import style from "./editContact.module.css";
+import modalStyles from "../../app/globals.module.css"
 import { customModal } from "../utils/utils";
 import { IFormInput } from "../utils/types";
 
@@ -36,14 +36,14 @@ export default function EditContact({id, name, email, phoneNumber,}: {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to update contact");
+                throw new Error('Falha ao editar contato');
             }
 
-            console.log("Contact updated successfully!");
+            console.log('Contato editado com sucesso');
 
             router.refresh();
         } catch (error) {
-            console.error("Error updating contact:", error);
+            console.error("Error:", error);
         }
         closeModal();
     };
@@ -61,7 +61,14 @@ export default function EditContact({id, name, email, phoneNumber,}: {
 
     return (
         <div>
-            <button className={style.editIcon} onClick={openModal}>
+            <button 
+                style={{ 
+                    color: '#02213B',
+                    border: 'none',
+                    background: 'none',
+                    cursor: 'pointer',
+                }} 
+                onClick={openModal}>
                 <HiPencilAlt size={24}></HiPencilAlt>
             </button>
             <Modal
@@ -69,20 +76,20 @@ export default function EditContact({id, name, email, phoneNumber,}: {
                 onRequestClose={closeModal}
                 contentLabel="Edit contact modal"
                 style={customModal}
-                overlayClassName={style.overlay}
+                overlayClassName={modalStyles.overlay}
             >
-                <div className={style.modalBox}>
-                    <div className={style.modalHeader}>
+                <div className={modalStyles.modalBox}>
+                    <div className={modalStyles.modalHeader}>
                         <h4>Editar contato</h4>
-                        <button className={style.closeButton} onClick={closeModal}>
+                        <button className={modalStyles.closeButton} onClick={closeModal}>
                             <HiX size={20} />
                         </button>
                     </div>
-                    <div className={style.modalBody}>
+                    <div className={modalStyles.modalBody}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label>Nome</label>
                             <input
-                                className={style.input}
+                                className={modalStyles.input}
                                 {...register("name", {
                                     required: " * Nome é obrigatório",
                                     maxLength: {
@@ -92,12 +99,12 @@ export default function EditContact({id, name, email, phoneNumber,}: {
                                 })}
                                 aria-invalid={errors.name ? "true" : "false"}
                             />
-                            <div className={style.errorMessageContainer}>
-                                {errors.name && (<p className={style.error}>{errors.name.message}</p> )}
+                            <div className={modalStyles.errorMessageContainer}>
+                                {errors.name && (<p className={modalStyles.error}>{errors.name.message}</p> )}
                             </div>
                             <label>E-mail</label>
                             <input
-                                className={style.input}
+                                className={modalStyles.input}
                                 {...register("email", {
                                     required: "* E-mail é obrigatório",
                                     pattern: {
@@ -107,12 +114,12 @@ export default function EditContact({id, name, email, phoneNumber,}: {
                                 })}
                                 aria-invalid={errors.email ? "true" : "false"}
                             />
-                            <div className={style.errorMessageContainer}>
-                                {errors.email && (<p className={style.error}>{errors.email.message}</p>)}
+                            <div className={modalStyles.errorMessageContainer}>
+                                {errors.email && (<p className={modalStyles.error}>{errors.email.message}</p>)}
                             </div>
                             <label>Telefone</label>
                             <input
-                                className={style.input}
+                                className={modalStyles.input}
                                 {...register("phoneNumber", {
                                     required: "* Telefone é obrigatório",
                                     pattern: {
@@ -122,19 +129,19 @@ export default function EditContact({id, name, email, phoneNumber,}: {
                                 })}
                                 aria-invalid={errors.phoneNumber ? "true" : "false"}
                             />
-                            <div className={style.errorMessageContainer}>
-                                {errors.phoneNumber && (<p className={style.error}>{errors.phoneNumber.message}</p>)}
+                            <div className={modalStyles.errorMessageContainer}>
+                                {errors.phoneNumber && (<p className={modalStyles.error}>{errors.phoneNumber.message}</p>)}
                             </div>
-                            <div className={style.modalFooter}>
+                            <div className={modalStyles.modalFooter}>
                                 <button
-                                    className={`${style.generalButton} ${style.cancelButton}`}
+                                    className={`${modalStyles.generalButton} ${modalStyles.cancelButton}`}
                                     onClick={closeModal}
                                 >
                                     <HiX size={20} />
                                     Cancelar
                                 </button>
                                 <button
-                                    className={`${style.generalButton} ${style.confirmButton}`}
+                                    className={`${modalStyles.generalButton} ${modalStyles.confirmButton}`}
                                     type="submit"
                                     value="Editar Contato"
                                 >

@@ -9,7 +9,6 @@ import Image from "next/image";
 import { formatDate, formatPhone } from "../utils/utils";
 
 export default function ContactsTable({ filteredContacts }: FilteredContactsProps) {
-
     return (
         <div>
             <table className={styles.styledTable}>

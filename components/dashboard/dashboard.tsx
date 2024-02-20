@@ -1,6 +1,7 @@
 'use client'
 
 import style from "./dashboard.module.css"
+import modalStyles from "../../app/globals.module.css"
 import { HiSearch, HiOutlineCalendar, HiX, HiOutlineCheck } from "react-icons/hi"
 import AddContact from "../addContact/addContact";
 import { useEffect, useState } from "react";
@@ -21,7 +22,7 @@ export default function Dashboard({ contacts }: ContactsProps) {
     useEffect(() => {
         setFilteredContacts(contacts);
     }, [contacts]);
-    
+
     const handleSearch = () => {
         const newFilteredContacts = contacts.filter(contact =>
             contact.name.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -97,12 +98,12 @@ export default function Dashboard({ contacts }: ContactsProps) {
                 onRequestClose={closeModal}
                 contentLabel="Date modal"
                 style={customModal}
-                overlayClassName={style.overlay}
+                overlayClassName={modalStyles.overlay}
             >
                 <div className={style.modalBox}>
                     <div className={style.modalHeader}>
                         <h4>Cadastro</h4>
-                        <button className={style.closeButton} onClick={closeModal}>
+                        <button className={modalStyles.closeButton} onClick={closeModal}>
                             <HiX size={20} />
                         </button>
                     </div>

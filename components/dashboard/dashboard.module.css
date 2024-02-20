@@ -46,20 +46,9 @@
   width: 15%;
 }
 
-.downloadButton {
-  width: 12%;
-}
-
 .filterButton {
   width: 10%;
 }
-
-.removeFilterButton {
-  width: 10%;
-  background: rgb(142, 11, 11);
-  color: #ffff;
-}
-
 
 /* Search */
 
@@ -99,18 +88,11 @@
   outline: none;
 }
 
+
+
 .table{
   width: 95%;
   overflow-y: scroll;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: RGBA(103, 103, 103, 0.44)
 }
 
 .modalHeader {
@@ -121,14 +103,6 @@
   height: 20px;
   width: 90%;
   padding-top: 20px;
-}
-
-.closeButton {
-  border: none;
-  background: none;
-  color: black;
-  cursor: pointer;
-  height: 20px;
 }
 
 .modalBox {
@@ -147,7 +121,7 @@
 }
 
 .cancelButton {
-  background: rgb(142, 11, 11);
+  background: #8e0b0b;
   width: 45%;
   color: white;
 }

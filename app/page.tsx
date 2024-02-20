@@ -3,7 +3,6 @@ import Dashboard from "../components/dashboard/dashboard";
 
 async function getContacts() {
   const apiUrl = process.env.API_URL
-  console.log(apiUrl)
   try {
       const res = await fetch(`${apiUrl}/api/contacts`, {
           cache: "no-store"

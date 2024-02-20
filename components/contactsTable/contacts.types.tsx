@@ -8,6 +8,10 @@ export interface Contact {
     _id: string;
 }
 
-export interface Props {
+export interface FilteredContactsProps {
+    filteredContacts: Contact[];
+}
+
+export interface ContactsProps {
     contacts: Contact[];
 }

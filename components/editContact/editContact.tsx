@@ -26,12 +26,7 @@ const customModal = {
     },
 };
 
-export default function EditContact({
-    id,
-    name,
-    email,
-    phoneNumber,
-}: {
+export default function EditContact({id, name, email, phoneNumber,}: {
     id: string;
     name: string;
     email: string;

@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import Contacts from "../components/contacts/contacts";
+import Dashboard from "../components/dashboard/dashboard";
 
 async function getContacts() {
   const apiUrl = process.env.API_URL
@@ -24,7 +24,7 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <Contacts contacts={contacts}/>
+      <Dashboard contacts={contacts}/>
     </main>
   );
 }

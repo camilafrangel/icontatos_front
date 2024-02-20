@@ -1,8 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./navbar.module.css"
-import { HiHome } from "react-icons/hi"
-import Link from "next/link";
 
 export default function Navbar(){
     return(

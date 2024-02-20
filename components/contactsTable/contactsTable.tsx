@@ -1,9 +1,11 @@
+'use client'
+
 import styles from "./contacts.module.css"
 import RemoveContact from "../removeContact/removeContact";
+import EditContact from "../editContact/editContact";
 import { Key } from "react";
-import ButtonGroup from "../buttonGroup/buttonGroup";
-import EditContact from "../../app/editContact/[id]/page";
-import { Props } from "./contacts.types";
+import { FilteredContactsProps } from "./contacts.types";
+import Image from "next/image";
 
 function formatDate(originalDateString: string) {
     const originalDate = new Date(originalDateString);
@@ -17,13 +19,12 @@ function formatPhone(originalPhoneNumber: string) {
     return numbers.replace(newFormat, '($1) $2-$3');
 }
 
-export default async function Contacts({ contacts }: Props) {
+export default function ContactsTable({ filteredContacts }: FilteredContactsProps) {
 
     return (
-        <div className={styles.contactsBox}>
-            <div>
-                <ButtonGroup />
-                <table className={styles.styledTable}>
+        <div>
+            <table className={styles.styledTable}>
+                {filteredContacts.length > 0 && (
                     <thead>
                         <tr className={styles.tableRow}>
                             <th scope="col">Nome</th>
@@ -34,8 +35,10 @@ export default async function Contacts({ contacts }: Props) {
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {contacts.map((c: { id: string, name: string, email: string, phoneNumber: string, createdAt: string, updatedAt: string, _id: any }, index: Key) => (
+                )}
+                <tbody>
+                    {filteredContacts.length > 0 && (
+                        filteredContacts.map((c: { id: string, name: string, email: string, phoneNumber: string, createdAt: string, updatedAt: string, _id: any }, index: Key) => (
                             <tr key={index} className={styles.tableRow}> {c.id}
                                 <td>{c.name}</td>
                                 <td>{c.email}</td>
@@ -43,15 +46,20 @@ export default async function Contacts({ contacts }: Props) {
                                 <td>{formatDate(c.createdAt)}</td>
                                 <td>{formatDate(c.updatedAt)}</td>
                                 <td className={styles.buttonCell}>
-                                    <EditContact params={{id: `${c._id}`}}/>
-                                    <RemoveContact id={c._id} user={c.name}/>
+                                    <EditContact id={c._id} name={c.name} email={c.email} phoneNumber={c.phoneNumber} />
+                                    <RemoveContact id={c._id} user={c.name} />
                                 </td>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        ))
+                    )}
+                </tbody>
+            </table>
+            {filteredContacts.length === 0 && (
+                <div className={styles.emptyContainer}>
+                    <Image src="/assets/emptySearch.png" alt="iContatos" className={styles.emptyImg} width={300} height={300} />
+                    <p>Nenhum usuário encontrado, tente fazer outra pesquisa.</p>
+                </div>
+            )}
         </div>
-
     );
 }

@@ -57,7 +57,7 @@ export default function ContactsTable({ filteredContacts }: FilteredContactsProp
             {filteredContacts.length === 0 && (
                 <div className={styles.emptyContainer}>
                     <Image src="/assets/emptySearch.png" alt="iContatos" className={styles.emptyImg} width={300} height={300} />
-                    <p>Nenhum usuário encontrado, tente fazer outra pesquisa.</p>
+                    <p>Nenhum usuário encontrado, tente fazer outra pesquisa ou remover o filtro de data.</p>
                 </div>
             )}
         </div>

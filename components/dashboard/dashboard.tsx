@@ -58,8 +58,6 @@ export default function Dashboard({ contacts }: ContactsProps) {
         setIsOpen(false);
     }
 
-    contacts = []
-
     return (
         <div>
             {contacts.length > 0 && (

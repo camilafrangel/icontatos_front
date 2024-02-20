@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# iContatos
 
-## Getting Started
+Esse repositório faz parte de um teste técnico com os seguintes requerimentos: 
 
-First, run the development server:
+- Prazo de 5 dias;
+- Criação de dashboard de contatos utilizando Next, react Hook Form e Typescript;
+- Tela de contatos onde deverá ser possível listar, criar, editar e remover contatos;
+- Assim como filtrar por nome, email e data de cadastro;
+- Backend em C# ou node;
+- MongoDB como banco de dados; 
+- Padrão REST nos endpoints.
+
+## Deploy usando vercel
+
+https://icontatos.vercel.app/
+
+## Design
+
+Você pode checar o protótipo que eu fiz no [Figma](https://www.figma.com/file/yy34cC6E3ENL6VUoJf529B/icontatos?type=design&node-id=0%3A1&mode=design&t=HPFBHwqY3F2QjeEU-1).
+
+## Próximos passos
+
+- Paginação;
+- Export to csv.
+
+## Rodando localmente
+
+Clone o projeto
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/camilafrangel/icontatos_front.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Entre no diretório do projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd icontatos-app
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Instale as dependências com npm ou yarn
 
-## Learn More
+```bash
+  npm install
+  yarn install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Inicie o servidor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Vá até http://localhost:3000/
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Desenvolvedora
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [@camilafrangel](https://github.com/camilafrangel)
+- [Linkedin](https://www.linkedin.com/in/camilafrangel/)
+- [Portfolio - em desenvolvimento](https://camilafrangel.github.io/portfolio/)
+

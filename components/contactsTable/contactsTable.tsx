@@ -16,7 +16,7 @@ export default function ContactsTable({ filteredContacts }: FilteredContactsProp
                     <thead>
                         <tr className={styles.tableRow}>
                             <th scope="col">Nome</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">E-mail</th>
                             <th scope="col">Telefone</th>
                             <th scope="col">Cadastro</th>
                             <th scope="col">Última Atualização</th>

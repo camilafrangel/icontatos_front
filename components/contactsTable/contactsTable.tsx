@@ -4,7 +4,7 @@ import styles from "./contacts.module.css"
 import RemoveContact from "../removeContact/removeContact";
 import EditContact from "../editContact/editContact";
 import { Key } from "react";
-import { FilteredContactsProps } from "./contacts.types";
+import { FilteredContactsProps } from "../utils/contacts.types";
 import Image from "next/image";
 
 function formatDate(originalDateString: string) {

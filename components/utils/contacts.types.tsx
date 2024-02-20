@@ -8,6 +8,12 @@ export interface Contact {
     _id: string;
 }
 
+export interface IFormInput {
+    name: String,
+    email: String,
+    phoneNumber: String
+}
+
 export interface FilteredContactsProps {
     filteredContacts: Contact[];
 }

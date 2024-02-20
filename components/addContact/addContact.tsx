@@ -6,25 +6,8 @@ import { HiOutlineCheck, HiUserAdd, HiX } from "react-icons/hi";
 import style from "./addContact.module.css"
 import Modal from "react-modal"
 import React, { useState } from "react";
-
-interface IFormInput {
-    name: String,
-    email: String,
-    phoneNumber: String
-}
-
-const customModal = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        borderRadius: '8px',
-        border: 'none'
-    }
-};
+import { customModal } from "../utils/utils";
+import { IFormInput } from "../utils/contacts.types";
 
 export default function AddContact() {
     const router = useRouter();

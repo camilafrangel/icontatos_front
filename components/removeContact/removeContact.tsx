@@ -6,18 +6,7 @@ import Modal from "react-modal"
 import style from "./removeContact.module.css"
 import React from "react";
 import { HiOutlineCheck, HiX } from "react-icons/hi";
-
-const customModal = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        borderRadius: '8px'
-    }
-};
+import { customModal } from "../utils/utils"
 
 export default function RemoveContact({ id, user }: { id: string, user: string }) {
     const router = useRouter();

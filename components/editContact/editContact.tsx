@@ -6,25 +6,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { HiOutlineCheck, HiPencilAlt, HiX } from "react-icons/hi";
 import Modal from "react-modal";
 import style from "./editContact.module.css";
-
-interface IFormInput {
-    name: String,
-    email: String,
-    phoneNumber: String
-}
-
-const customModal = {
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        borderRadius: "8px",
-        border: "none",
-    },
-};
+import { customModal } from "../utils/utils";
+import { IFormInput } from "../utils/contacts.types";
 
 export default function EditContact({id, name, email, phoneNumber,}: {
     id: string;

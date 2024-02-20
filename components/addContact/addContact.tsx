@@ -8,7 +8,6 @@ import Modal from "react-modal"
 import React, { useState } from "react";
 import { customModal } from "../utils/utils";
 import { IFormInput } from "../utils/types";
-import { refreshTable } from "../../app/page";
 
 export default function AddContact() {
     const router = useRouter();
@@ -31,7 +30,6 @@ export default function AddContact() {
 
             console.log('Contact created successfully!');
             router.refresh();
-            refreshTable();
         } catch (error) {
             console.error('Error creating contact:', error);
         }

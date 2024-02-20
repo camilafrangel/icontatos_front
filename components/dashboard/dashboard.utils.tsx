@@ -1,4 +1,4 @@
-export function formatDate(dataString) {
+export function formatDate(dataString: string) {
     const data = new Date(dataString);
 
     const ano = data.getFullYear();

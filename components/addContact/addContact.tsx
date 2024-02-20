@@ -7,7 +7,8 @@ import style from "./addContact.module.css"
 import Modal from "react-modal"
 import React, { useState } from "react";
 import { customModal } from "../utils/utils";
-import { IFormInput } from "../utils/contacts.types";
+import { IFormInput } from "../utils/types";
+import { refreshTable } from "../../app/page";
 
 export default function AddContact() {
     const router = useRouter();
@@ -30,6 +31,7 @@ export default function AddContact() {
 
             console.log('Contact created successfully!');
             router.refresh();
+            refreshTable();
         } catch (error) {
             console.error('Error creating contact:', error);
         }
@@ -109,7 +111,7 @@ export default function AddContact() {
                                     {...register("phoneNumber", {
                                         required: "* Telefone é obrigatório",
                                         pattern: {
-                                            value: /^[0-9]{10,11}$/,
+                                            value: /^[0-9]{11}$/,
                                             message: "* Telefone inválido"
                                         }
                                     })}

@@ -4,20 +4,9 @@ import styles from "./contacts.module.css"
 import RemoveContact from "../removeContact/removeContact";
 import EditContact from "../editContact/editContact";
 import { Key } from "react";
-import { FilteredContactsProps } from "../utils/contacts.types";
+import { FilteredContactsProps } from "../utils/types";
 import Image from "next/image";
-
-function formatDate(originalDateString: string) {
-    const originalDate = new Date(originalDateString);
-    return originalDate.toLocaleDateString('en-GB');
-};
-
-function formatPhone(originalPhoneNumber: string) {
-    const numbers = originalPhoneNumber.replace(/\D/g, '');
-
-    const newFormat = /^(\d{2})(\d{5})(\d{4})$/;
-    return numbers.replace(newFormat, '($1) $2-$3');
-}
+import { formatDate, formatPhone } from "../utils/utils";
 
 export default function ContactsTable({ filteredContacts }: FilteredContactsProps) {
 

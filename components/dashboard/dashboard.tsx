@@ -1,18 +1,16 @@
 'use client'
 
-import Link from "next/link";
 import style from "./dashboard.module.css"
-import { HiDownload, HiSearch, HiOutlineCalendar, HiX, HiOutlineCheck } from "react-icons/hi"
+import { HiSearch, HiOutlineCalendar, HiX, HiOutlineCheck } from "react-icons/hi"
 import AddContact from "../addContact/addContact";
-import { useState } from "react";
-import { ContactsProps } from "../utils/contacts.types";
+import { useEffect, useState } from "react";
+import { ContactsProps } from "../utils/types";
 import ContactsTable from "../contactsTable/contactsTable";
 import Modal from "react-modal";
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { formatDate } from "./dashboard.utils";
+import { formatDateString } from "../utils/utils";
 import { customModal } from "../utils/utils";
-import Image from "next/image";
 
 export default function Dashboard({ contacts }: ContactsProps) {
     const [searchValue, setSearchValue] = useState('');
@@ -20,6 +18,10 @@ export default function Dashboard({ contacts }: ContactsProps) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState<Date>();
 
+    useEffect(() => {
+        setFilteredContacts(contacts);
+    }, [contacts]);
+    
     const handleSearch = () => {
         const newFilteredContacts = contacts.filter(contact =>
             contact.name.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -36,7 +38,7 @@ export default function Dashboard({ contacts }: ContactsProps) {
 
     const handleDateFilter = () => {
         if (selected) {
-            const selectedFormatted = formatDate(selected);
+            const selectedFormatted = formatDateString(selected);
             const newFilteredContacts = contacts.filter(contact =>
                 contact.createdAt.includes(selectedFormatted)
             );

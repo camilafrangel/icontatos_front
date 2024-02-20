@@ -7,7 +7,7 @@ import { HiOutlineCheck, HiPencilAlt, HiX } from "react-icons/hi";
 import Modal from "react-modal";
 import style from "./editContact.module.css";
 import { customModal } from "../utils/utils";
-import { IFormInput } from "../utils/contacts.types";
+import { IFormInput } from "../utils/types";
 
 export default function EditContact({id, name, email, phoneNumber,}: {
     id: string;
@@ -116,7 +116,7 @@ export default function EditContact({id, name, email, phoneNumber,}: {
                                 {...register("phoneNumber", {
                                     required: "* Telefone é obrigatório",
                                     pattern: {
-                                        value: /^[0-9]{10,11}$/,
+                                        value: /^[0-9]{11}$/,
                                         message: "* Telefone inválido",
                                     },
                                 })}

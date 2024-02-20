@@ -19,6 +19,16 @@ async function getContacts() {
   }
 }
 
+export function refreshTable() {
+  getContacts()
+      .then(newContacts => {
+          ({ contacts: newContacts });
+      })
+      .catch(error => {
+          console.error("Error:", error);
+      });
+}
+
 export default async function Home() {
   const { contacts } = await getContacts();
 

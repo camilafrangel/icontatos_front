@@ -59,92 +59,77 @@ export default function Dashboard({ contacts }: ContactsProps) {
     }
 
     return (
-        <div>
-            {contacts.length > 0 && (
-                <div className={style.contactsPannel}>
-                <div className={style.groupButton}>
-                    {!selected && (
-                        <button className={`${style.generalButton} ${style.filterButton}`} onClick={openModal}>
-                            <HiOutlineCalendar size={20} />
-                            Filtrar
-                        </button>
-                    )}
-                    {selected && (
-                        <button className={`${style.generalButton} ${style.filterButton}`} onClick={clearDateFilter}>
-                            <HiOutlineCalendar size={20} />
-                            Remover
-                        </button>
-                    )}
-                    <div className={style.wrapper}>
-                        <input
-                            className={style.input}
-                            type="text"
-                            placeholder="Pesquise por nome ou email"
-                            value={searchValue}
-                            onChange={(e) => setSearchValue(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                        />
-                        <button className={style.searchButton} onClick={handleSearch}>
-                            <HiSearch className={style.icon} size={20} />
+        <div className={style.contactsPannel}>
+            <div className={style.groupButton}>
+                {!selected && (
+                    <button className={`${style.generalButton} ${style.filterButton}`} onClick={openModal}>
+                        <HiOutlineCalendar size={20} />
+                        Filtrar
+                    </button>
+                )}
+                {selected && (
+                    <button className={`${style.generalButton} ${style.filterButton}`} onClick={clearDateFilter}>
+                        <HiOutlineCalendar size={20} />
+                        Remover
+                    </button>
+                )}
+                <div className={style.wrapper}>
+                    <input
+                        className={style.input}
+                        type="text"
+                        placeholder="Pesquise por nome ou email"
+                        value={searchValue}
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        onKeyDown={handleKeyPress} />
+                    <button className={style.searchButton} onClick={handleSearch}>
+                        <HiSearch className={style.icon} size={20} />
+                    </button>
+                </div>
+                <div className={style.primaryButton}>
+                    <AddContact />
+                </div>
+            </div><div className={style.table}>
+                <ContactsTable filteredContacts={filteredContacts} />
+            </div><Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Date modal"
+                style={customModal}
+                overlayClassName={style.overlay}
+            >
+                <div className={style.modalBox}>
+                    <div className={style.modalHeader}>
+                        <h4>Cadastro</h4>
+                        <button className={style.closeButton} onClick={closeModal}>
+                            <HiX size={20} />
                         </button>
                     </div>
-                    <div className={style.primaryButton}>
-                        <AddContact />
+                    <div className={style.modalBody}>
+                        <DayPicker
+                            mode="single"
+                            selected={selected}
+                            onSelect={setSelected} />
+                    </div>
+                    <div className={style.modalFooter}>
+                        <button
+                            className={`${style.generalButton} ${style.cancelButton}`}
+                            onClick={closeModal}
+                        >
+                            <HiX size={20} />
+                            Cancelar
+                        </button>
+                        <button
+                            className={`${style.generalButton} ${style.confirmButton}`}
+                            type="submit"
+                            value="Editar Contato"
+                            onClick={handleDateFilter}
+                        >
+                            <HiOutlineCheck size={20} />
+                            Confirmar
+                        </button>
                     </div>
                 </div>
-                <div className={style.table}>
-                    <ContactsTable filteredContacts={filteredContacts} />
-                </div>
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Date modal"
-                    style={customModal}
-                    overlayClassName={style.overlay}
-                >
-                    <div className={style.modalBox}>
-                        <div className={style.modalHeader}>
-                            <h4>Cadastro</h4>
-                            <button className={style.closeButton} onClick={closeModal}>
-                                <HiX size={20} />
-                            </button>
-                        </div>
-                        <div className={style.modalBody}>
-                            <DayPicker
-                                mode="single"
-                                selected={selected}
-                                onSelect={setSelected}
-                            />
-                        </div>
-                        <div className={style.modalFooter}>
-                            <button
-                                className={`${style.generalButton} ${style.cancelButton}`}
-                                onClick={closeModal}
-                            >
-                                <HiX size={20} />
-                                Cancelar
-                            </button>
-                            <button
-                                className={`${style.generalButton} ${style.confirmButton}`}
-                                type="submit"
-                                value="Editar Contato"
-                                onClick={handleDateFilter}
-                            >
-                                <HiOutlineCheck size={20} />
-                                Confirmar
-                            </button>
-                        </div>
-                    </div>
-                </Modal>
-            </div>
-            )}
-            {contacts.length === 0 && (
-                <div className={style.emptyContainer}>
-                    <Image src="/assets/emptySearch.png" alt="iContatos" className={style.emptyImg} width={300} height={300} />
-                    <p>Nenhum usuário encontrado, tente criar um.</p>
-                    <AddContact/>
-                </div>
-            )}
+            </Modal>
         </div>
     )
 }

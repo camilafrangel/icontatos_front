@@ -1,3 +1,7 @@
+<div>
+  <img src="/app/favicon.ico" alt="Logo" width="50" height="50" style="margin-right: 10px;">
+</div>
+
 # iContatos
 
 Esse repositório faz parte de um teste técnico com os seguintes requerimentos: 
